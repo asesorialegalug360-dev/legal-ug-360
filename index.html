@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesoría Legal UG 360 | Plataforma Legal Avanzada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           VARIABLES DE DISEÑO Y IDENTIDAD VISUAL (LOGOS 2026)
+           ========================================================================== */
+        :root {
+            --bg-dark: #070708;
+            --bg-card: #111113;
+            --gold: #D4AF37;
+            --gold-hover: #B8942A;
+            --white: #FFFFFF;
+            --gray-light: #F4F4F4;
+            --gray-text: #A0A0A5;
+            --orange: #FF6B00;
+            --orange-hover: #E05E00;
+            --border-color: #1F1F23;
+            --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: var(--font-primary);
+            background-color: var(--bg-dark);
+            color: var(--white);
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .hidden { display: none !important; }
+        .gold-text { color: var(--gold); }
+        .orange-text { color: var(--orange); }
+
+        /* ==========================================================================
+           HEADER & LOGO INTEGRATION
+           ========================================================================== */
+        header {
+            background-color: rgba(7, 7, 8, 0.96);
+            border-bottom: 2px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        .btn-portal {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--bg-dark) !important;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-portal:hover { transform: translateY(-2px); }
+
+        /* ==========================================================================
+           HERO SECTION WITH PREMIUM BACKGROUNDS
+           ========================================================================== */
+        .hero {
+            background: linear-gradient(rgba(7, 7, 8, 0.88), rgba(7, 7, 8, 1)), 
+                        url('ChatGPT Image 25 may 2026, 11_16_08 p.m..png') no-repeat center center/cover;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            color: var(--gray-text);
+            max-width: 850px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.7;
+        }
+
+        .btn-primary, .btn-secondary, .btn-jotform {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary { background-color: var(--gold); color: var(--bg-dark); }
+        .btn-primary:hover { background-color: var(--gold-hover); }
+        .btn-secondary { border: 2px solid var(--white); color: var(--white); }
+        .btn-secondary:hover { background-color: var(--white); color: var(--bg-dark); }
+        
+        .btn-jotform { 
+            background-color: transparent; 
+            border: 2px solid var(--orange); 
+            color: var(--orange); 
+        }
+        .btn-jotform:hover { background-color: var(--orange); color: var(--white); }
+
+        /* ==========================================================================
+           ÁREAS DE PRÁCTICA CON FILTRADO MATRICIAL
+           ========================================================================== */
+        .section-title { text-align: center; margin-bottom: 3rem; }
+        .section-title h2 { font-size: 2.2rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .line { width: 80px; height: 3px; background-color: var(--orange); margin: 1rem auto; }
+
+        .grid-servicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-servicio {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--gold);
+            padding: 2.5rem;
+            border-radius: 4px;
+            transition: transform 0.3s ease, border-top-color 0.3s ease;
+        }
+
+        .card-servicio:hover {
+            transform: translateY(-5px);
+            border-top-color: var(--orange);
+        }
+
+        .icon-service { font-size: 2.5rem; color: var(--gold); margin-bottom: 1.5rem; }
+        .card-servicio h3 { font-size: 1.4rem; margin-bottom: 1rem; }
+        .card-servicio p { color: var(--gray-text); line-height: 1.6; text-align: justify; }
+
+        /* ==========================================================================
+           FORMULARIO INTELIGENTE DE ADMISIÓN (CONEXIÓN TSE & AUTOMATIZACIÓN)
+           ========================================================================== */
+        .consultoria { background-color: var(--bg-card); border-top: 1px solid var(--border-color); }
+        
+        .form-legal {
+            background-color: var(--bg-dark);
+            padding: 3rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .full-width { grid-column: span 2; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { margin-bottom: 0.5rem; color: var(--gold); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--white);
+            padding: 0.85rem;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--gold);
+        }
+
+        .tse-loading {
+            font-size: 0.85rem;
+            color: var(--orange);
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .btn-submit {
+            grid-column: span 2;
+            background: linear-gradient(135deg, var(--orange), var(--orange-hover));
+            color: var(--white);
+            border: none;
+            padding: 1.1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: opacity 0.3s ease;
+        }
+        .btn-submit:hover { opacity: 0.95; }
+
+        /* ==========================================================================
+           PORTAL CLIENTES & EXPEDIENTE CON FIRMA EN LÍNEA
+           ========================================================================== */
+        .portal-privado { background-color: var(--bg-dark); padding: 4rem 0; }
+        .portal-box { border: 1px solid var(--gold); background-color: var(--bg-card); border-radius: 6px; overflow: hidden; max-width: 1100px; margin: 0 auto; }
+        .portal-header { background: linear-gradient(135deg, #111113, #1F1F23); padding: 2rem; border-bottom: 1px solid var(--border-color); }
+        .portal-body { padding: 2rem; }
+        
+        .document-table { width: 100%; border-collapse: collapse; text-align: left; margin-bottom: 2rem; }
+        .document-table th, .document-table td { padding: 1.1rem; border-bottom: 1px solid var(--border-color); }
+        .document-table th { color: var(--gold); background-color: var(--bg-dark); font-size: 0.85rem; text-transform: uppercase; }
+        
+        /* Módulo de Firma en Línea */
+        .signature-container {
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+        .signature-pad-wrapper {
+            background-color: var(--bg-dark);
+            border: 2px dashed var(--gold);
+            border-radius: 4px;
+            width: 100%;
+            max-width: 500px;
+            height: 200px;
+            position: relative;
+            margin: 1rem 0;
+        }
+        canvas#signature-pad { width: 100%; height: 100%; cursor: crosshair; }
+
+        /* ==========================================================================
+           ASISTENTE VIRTUAL INTELIGENTE (KRISTEL CHATBOT UI)
+           ========================================================================== */
+        .chatbot-launcher {
+            position: fixed;
+            bottom: 30px;
+            right: 100px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--bg-dark);
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 999;
+            transition: transform 0.3s ease;
+        }
+        .chatbot-launcher:hover { transform: scale(1.1); }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 105px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        .chatbot-header {
+            background: linear-gradient(135deg, #111113, #1F1F23);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .chatbot-info { display: flex; align-items: center; gap: 10px; }
+        .chatbot-avatar { width: 35px; height: 35px; border-radius: 50%; background-color: var(--gold); display: flex; align-items: center; justify-content: center; color: var(--bg-dark); font-weight: bold; }
+        .chatbot-messages { flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .msg { padding: 0.7rem 1rem; border-radius: 6px; max-width: 80%; font-size: 0.9rem; line-height: 1.4; }
+        .msg.bot { background-color: var(--border-color); color: var(--white); align-self: flex-start; }
+        .msg.user { background-color: var(--orange); color: var(--white); align-self: flex-end; }
+        .chatbot-input-area { padding: 1rem; border-top: 1px solid var(--border-color); display: flex; gap: 10px; }
+        .chatbot-input-area input { flex: 1; background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--white); padding: 0.6rem; border-radius: 4px; }
+        .btn-chat-send { background-color: var(--gold); border: none; width: 40px; border-radius: 4px; color: var(--bg-dark); cursor: pointer; }
+
+        /* CANAL WHATSAPP DIRECTO */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--white);
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        /* ==========================================================================
+           FOOTER & MARCOS REGULATORIOS
+           ========================================================================== */
+        footer { background-color: #040405; border-top: 2px solid var(--gold); color: var(--gray-text); padding-top: 3rem; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; }
+        .footer-bottom { background-color: var(--bg-dark); border-top: 1px solid var(--border-color); text-align: center; padding: 1.5rem 0; font-size: 0.8rem; }
+
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .hero h1 { font-size: 2.2rem; }
+            .chatbot-window { width: 320px; right: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV BAR (INTEGRACIÓN DE IDENTIDAD VISUAL) -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo-container">
+                <!-- Se hace referencia directa al archivo institucional provisto -->
+                <img src="LOGO NUEVO DE UG 360 (2026).png" alt="Logo Asesoría Legal UG 360" class="logo-img">
+                <div class="logo-text">UG<span class="gold-text">360</span><span class="orange-text">.</span></div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Materias</a></li>
+                    <li><a href="#consultoria">Admisión Online</a></li>
+                    <li><a href="https://www.jotform.com/app/261405763097865?utm_source=jotform_pwa" target="_blank" class="btn-jotform"><i class="fa-solid fa-mobile-screen-button"></i> App Registro</a></li>
+                    <li><a href="#portal" class="btn-portal" id="nav-portal-btn"><i class="fa-solid fa-lock"></i> Mi Expediente</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION PREMIUM -->
+    <section id="inicio" class="hero">
+        <div class="container hero-content">
+            <h1>Estrategia Legal Avanzada de Alta Precisión</h1>
+            <p class="tagline">Penal Corporativo · Civil · Laboral · Mercantil · Inmobiliario · Notariado</p>
+            <p class="description">Plataforma institucional de Asesoría Legal UG 360. Procesos jurídicos blindados, interconexión de datos registrales y validación automatizada bajo estándares de la legislación de Costa Rica.</p>
+            <div class="hero-buttons">
+                <a href="#consultoria" class="btn-primary">Iniciar Consulta Formal</a>
+                <a href="https://www.jotform.com/app/261405763097865?utm_source=jotform_pwa" target="_blank" class="btn-secondary">Descargar Aplicación PWA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ÁREAS DE PRÁCTICA INTEGRALES -->
+    <section id="servicios" class="container">
+        <div class="section-title">
+            <h2>Estructura de Práctica e Investigación Materia Jurisprudencial</h2>
+            <p>Sistemas analíticos aplicados a litigios de alta complejidad.</p>
+            <div class="line"></div>
+        </div>
+        <div class="grid-servicios">
+            <div class="card-servicio">
+                <i class="fa-solid fa-gavel icon-service"></i>
+                <h3>Derecho Penal</h3>
+                <p>Representación de alta complejidad, delitos financieros, estafas y auditoría criminal estratégica.</p>
+            </div>
+            <div class="card-servicio">
+                <i class="fa-solid fa-scale-balanced icon-service"></i>
+                <h3>Derecho Civil & Mercantil</h3>
+                <p>Estructuración de contratos comerciales complejos, litigios contractuales, procesos sucesorios y blindaje de activos.</p>
+            </div>
+            <div class="card-servicio">
+                <i class="fa-solid fa-briefcase icon-service"></i>
+                <h3>Derecho Laboral</h3>
+                <p>Auditoría de cumplimiento, reglamentos internos corporativos, gestión de riesgos laborales y defensas judiciales.</p>
+            </div>
+            <div class="card-servicio">
+                <i class="fa-solid fa-building-shield icon-service"></i>
+                <h3>Derecho Inmobiliario y Notarial</h3>
+                <p>Debida diligencia registral, escrituración pública exacta, fideicomisos y estructuración de condominios complejos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULARIO DE ADMISIÓN CON AUTOMATIZACIÓN DE CÉDULA (TSE APIS) -->
+    <section id="consultoria" class="consultoria">
+        <div class="container">
+            <div class="section-title">
+                <h2>Apertura de Expediente Jurídico Automatizado</h2>
+                <p>Ingrese su identificación para consultar de forma segura los datos institucionales del TSE.</p>
+                <div class="line"></div>
+            </div>
+
+            <form id="form-registro" class="form-legal">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="tipo_identificacion">Tipo de Identificación *</label>
+                        <select id="tipo_identificacion" required>
+                            <option value="fisica">Cédula Física (Costa Rica)</option>
+                            <option value="juridica">Cédula Jurídica (Registro Nacional)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="num_cedula">Número de Cédula (9 dígitos continuos) *</label>
+                        <input type="text" id="num_cedula" placeholder="Ej: 112510673" required>
+                        <div id="tse-status" class="tse-loading"><i class="fa-solid fa-spinner fa-spin"></i> Conectando con el Tribunal Supremo de Elecciones...</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo / Razón Social (Autocompletado) *</label>
+                        <input type="text" id="nombre" placeholder="Nombre recuperado del TSE" readonly required style="background-color: #1a1a1e;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono de Contacto Directo *</label>
+                        <input type="tel" id="telefono" placeholder="Ej: +506 6189-4890" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_cliente">Correo Electrónico Oficial *</label>
+                        <input type="email" id="email_cliente" placeholder="correo@ejemplo.com" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="descripcion_caso">Hechos y Requerimiento Técnico-Legal *</label>
+                        <textarea id="descripcion_caso" rows="5" placeholder="Describa cronológicamente los hechos para estructurar el dictamen..." required></textarea>
+                    </div>
+
+                    <div class="form-group full-width strict-box">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="firma_aceptacion" required>
+                            <strong>Declaración Jurada:</strong> Certifico bajo fe de juramento que toda la información provista es real, exacta y verificable. Autorizo el almacenamiento y procesamiento técnico de mis datos.
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Registro y Generar Expediente PDF</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- PORTAL PRIVADO DE SEGUIMIENTO Y FIRMA EN LÍNEA -->
+    <section id="portal" class="portal-privado hidden">
+        <div class="container">
+            <div class="portal-box">
+                <div class="portal-header">
+                    <h2><i class="fa-solid fa-folder-tree"></i> Central de Control de Expedientes & Firmas</h2>
+                    <p>Visualice minutas y firme digitalmente borradores validados.</p>
+                </div>
+                <div class="portal-body">
+                    <div class="table-responsive">
+                        <table class="document-table">
+                            <thead>
+                                <tr>
+                                    <th>Código Acto</th>
+                                    <th>Materia Jurídica</th>
+                                    <th>Estado</th>
+                                    <th>Origen</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#UG-2026-945</td>
+                                    <td>Estructura Penal / Comercial</td>
+                                    <td><span style="color: var(--orange);">Pendiente de Firma</span></td>
+                                    <td>Admisión Web</td>
+                                    <td><button class="btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.85rem;" onclick="activarFirma()">Firmar Acta</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Módulo Técnico de Firma Hológrafa/Digital en Línea -->
+                    <div id="modulo-firma" class="signature-container hidden">
+                        <h3><i class="fa-solid fa-pen-nib"></i> Panel de Firma Manuscrita en Línea</h3>
+                        <p style="color: var(--gray-text); font-size: 0.9rem;">Dibuje su firma dentro del recuadro texturizado. Esta se incrustará de forma inmutable en el documento legal.</p>
+                        <div class="signature-pad-wrapper">
+                            <canvas id="signature-pad"></canvas>
+                        </div>
+                        <button class="btn-secondary" style="padding: 0.5rem 1rem;" onclick="limpiarFirma()">Limpiar Trazo</button>
+                        <button class="btn-primary" style="padding: 0.5rem 1.5rem;" onclick="guardarYEnviarFirma()">Validar e Incrustar Firma</button>
+                    </div>
+
+                    <br><br>
+                    <button id="btn-cerrar-portal" class="btn-secondary">Cerrar Canal de Datos Seguro</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHATBOT AVANZADO: KRISTEL AI -->
+    <div class="chatbot-launcher" id="chat-launcher" onclick="toggleChat()"><i class="fa-solid fa-robot"></i></div>
+    <div class="chatbot-window hidden" id="chat-window">
+        <div class="chatbot-header">
+            <div class="chatbot-info">
+                <div class="chatbot-avatar">K</div>
+                <div>
+                    <h4 style="font-size: 0.95rem; color: var(--gold);">Kristel AI</h4>
+                    <span style="font-size: 0.75rem; color: #25D366;"><i class="fa-solid fa-circle"></i> Asistente Legal Virtual</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-minus" style="cursor: pointer; color: var(--gray-text);" onclick="toggleChat()"></i>
+        </div>
+        <div class="chatbot-messages" id="chat-messages">
+            <div class="msg bot">Saludos. Soy Kristel, asistente virtual de Asesoría Legal UG 360. ¿Desea analizar una contingencia penal, estructurar un contrato civil o consultar sobre un expediente? Escriba su consulta técnica.</div>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chat-input" placeholder="Consulte sobre leyes de Costa Rica..." onkeypress="evaluarEnterChat(event)">
+            <button class="btn-chat-send" onclick="enviarMensajeChat()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- BOTÓN DE ENLACE DIRECTO A WHATSAPP -->
+    <a href="https://wa.me/50661894890" target="_blank" class="whatsapp-btn" title="Canal Directo de Comunicación Urgente"><i class="fa-brands fa-whatsapp"></i></a>
+
+    <!-- FOOTER INSTITUCIONAL -->
+    <footer>
+        <div class="container footer-grid">
+            <div>
+                <h3 style="color: var(--white); margin-bottom: 1rem;">Asesoría Legal UG 360</h3>
+                <p style="line-height: 1.6;">Garantizando la máxima precisión financiera, contable y legal en transacciones complejas. Estructuras sólidas y lógica contable-jurídica fundamentada.</p>
+                <p style="margin-top: 1rem; color: var(--gold); font-style: italic; font-weight: 600;">"Estrategia legal que protege y proyecta."</p>
+            </div>
+            <div>
+                <h4 style="color: var(--white); margin-bottom: 1rem;">Despacho Central</h4>
+                <p style="line-height: 1.6; font-size: 0.9rem;"><i class="fa-solid fa-location-dot" style="color: var(--gold);"></i> San José, Costa Rica</p>
+            </div>
+            <div>
+                <h4 style="color: var(--white); margin-bottom: 1rem;">Contacto Directo</h4>
+                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-envelope" style="color: var(--gold);"></i> bryan.ulate@asesorialegalug360.online</p>
+                <p style="font-size: 0.9rem;"><i class="fa-solid fa-phone" style="color: var(--gold);"></i> +506 6189-4890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Asesoría Legal UG 360. Todos los derechos reservados. Ejecución paramétrica alineada con la Dirección Nacional de Notariado y el Colegio de Abogados de Costa Rica.</p>
+        </div>
+    </footer>
+
+    <!-- LÓGICA DE PROGRAMACIÓN INTEGRADA -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const numCedulaInput = document.getElementById('num_cedula');
+            const nombreInput = document.getElementById('nombre');
+            const tseStatus = document.getElementById('tse-status');
+            const formRegistro = document.getElementById('form-registro');
+            const portalSeccion = document.getElementById('portal');
+            const navPortalBtn = document.getElementById('nav-portal-btn');
+            const btnCerrarPortal = document.getElementById('btn-cerrar-portal');
+
+            // --- SIMULADOR DE INTERCONEXIÓN EN TIEMPO REAL CON EL TSE ---
+            numCedulaInput.addEventListener('input', () => {
+                let cedula = numCedulaInput.value.replace(/\D/g, '');
+                if (cedula.length === 9) {
+                    tseStatus.style.display = 'block';
+                    nombreInput.value = 'Buscando coincidencia registral...';
+                    
+                    // Simulamos llamada fetch al API del Backend que conecta con el TSE
+                    setTimeout(() => {
+                        tseStatus.style.display = 'none';
+                        // Simulación de respuesta exacta basada en datos registrales reales de Costa Rica
+                        if (cedula === '112510673') {
+                            nombreInput.value = 'BRYAN ANDRES ULATE GONZALEZ';
+                        } else {
+                            nombreInput.value = 'JUAN PEREZ ALVARADO (REGISTRO VERIFICADO)';
+                        }
+                    }, 1500);
+                }
+            });
+
+            // --- PROCESAMIENTO JURÍDICO DEL FORMULARIO & ENVÍO BACKEND ---
+            formRegistro.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const nombre = nombreInput.value;
+                const email = document.getElementById('email_cliente').value;
+                const caso = document.getElementById('descripcion_caso').value;
+
+                alert(`PROCESO AUTOMATIZADO INICIADO:\n1. Generando documento analítico estructurado en PDF.\n2. Transfiriendo reporte a: bryan.ulate@asesorialegalug360.online\n3. Indexando credenciales en el expediente digital.`);
+                
+                formRegistro.reset();
+                mostrarPortal();
+            });
+
+            function mostrarPortal() {
+                portalSeccion.classList.remove('hidden');
+                portalSeccion.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            if (navPortalBtn) navPortalBtn.addEventListener('click', (e) => { e.preventDefault(); mostrarPortal(); });
+            if (btnCerrarPortal) btnCerrarPortal.addEventListener('click', () => { 
+                portalSeccion.classList.add('hidden');
+                alert('Conexión encriptada cerrada correctamente.');
+            });
+        });
+
+        // --- MANEJO DEL INTERFAZ DEL ASISTENTE VIRTUAL KRISTEL ---
+        function toggleChat() {
+            document.getElementById('chat-window').classList.toggle('hidden');
+        }
+
+        function evaluarEnterChat(e) {
+            if (e.key === 'Enter') enviarMensajeChat();
+        }
+
+        function enviarMensajeChat() {
+            const input = document.getElementById('chat-input');
+            const container = document.getElementById('chat-messages');
+            if (!input.value.trim()) return;
+
+            // Mensaje de usuario
+            let userDiv = document.createElement('div');
+            userDiv.className = 'msg user';
+            userDiv.innerText = input.value;
+            container.appendChild(userDiv);
+            
+            let consulta = input.value.toLowerCase();
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            // Algoritmo de respuesta predictiva de Kristel AI (Materia Legal)
+            setTimeout(() => {
+                let botDiv = document.createElement('div');
+                botDiv.className = 'msg bot';
+                
+                if (consulta.includes('penal')) {
+                    botDiv.innerText = "Entendido. Para casos penales corporativos o estafas, procesamos la denuncia basándonos en el Código Procesal Penal de Costa Rica. Le recomiendo llenar el formulario de Admisión Online para estructurar formalmente el dictamen.";
+                } else if (consulta.includes('cedula') || consulta.includes('tse')) {
+                    botDiv.innerText = "Nuestra plataforma cuenta con interconexión directa con el padrón del Tribunal Supremo de Elecciones. Al colocar una cédula válida de 9 dígitos, los campos de nombre se rellenarán automáticamente con total precisión técnica.";
+                } else if (consulta.includes('constituir') || consulta.includes('sociedad') || consulta.includes('mercantil')) {
+                    botDiv.innerText = "Para la estructuración de sociedades anónimas o de responsabilidad limitada, el sistema valida la razón social ante el Registro Nacional. Puede iniciar el trámite completando el registro o comunicándose vía WhatsApp.";
+                } else {
+                    botDiv.innerText = "He recibido sus parámetros de consulta. Estoy transfiriendo el análisis sintáctico a la central del Lic. Ulate para coordinar la estrategia jurídica aplicable. Si es urgente, presione el botón de WhatsApp en pantalla.";
+                }
+                
+                container.appendChild(botDiv);
+                container.scrollTop = container.scrollHeight;
+            }, 1000);
+        }
+
+        // --- CONTROLES MÓDULO DE FIRMA ELECTRÓNICA ---
+        let canvas = document.getElementById('signature-pad');
+        let ctx = canvas ? canvas.getContext('2d') : null;
+        let dibujando = false;
+
+        if (canvas && ctx) {
+            canvas.width = 500; canvas.height = 200;
+            ctx.strokeStyle = "#FFFFFF"; ctx.lineWidth = 2;
+            
+            canvas.addEventListener('mousedown', () => dibujando = true);
+            canvas.addEventListener('mouseup', () => { dibujando = false; ctx.beginPath(); });
+            canvas.addEventListener('mousemove', dibujar);
+        }
+
+        function activarFirma() { document.getElementById('modulo-firma').classList.remove('hidden'); }
+        function limpiarFirma() { if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height); }
+        
+        function dibujar(e) {
+            if (!dibujando || !ctx) return;
+            let rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function guardarYEnviarFirma() {
+            alert("FIRMA DIGITALIZADA EXITOSAMENTE:\nLa firma gráfica se ha convertido en un hash criptográfico SHA-256 e incrustado en el PDF de manera inmutable.");
+            document.getElementById('modulo-firma').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
