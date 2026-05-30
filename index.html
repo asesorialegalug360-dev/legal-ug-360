@@ -603,12 +603,342 @@
         </div>
     </footer>
 
+    <!-- WHATSAPP BUTTON -->
+    <a href="https://wa.me/50661894890?text=Hola%2C%20me%20gustar%C3%ADa%20consultar%20sobre%20los%20servicios%20de%20Asesor%C3%ADa%20Legal%20UG%20360" target="_blank" class="whatsapp-btn" title="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- CHATBOT BUTTON -->
+    <button class="chatbot-btn" title="Abrir ChatBot" onclick="toggleChatbot()">
+        <i class="fa-solid fa-comments"></i>
+    </button>
+
+    <!-- CHATBOT WINDOW -->
+    <div id="chatbot-window" class="chatbot-window hidden">
+        <div class="chatbot-header">
+            <div class="chatbot-header-content">
+                <img src="kristel.png" alt="Kristel - Asistente Legal" class="kristel-avatar">
+                <div>
+                    <h4>Kristel</h4>
+                    <p class="chatbot-status">Asistente Legal Online</p>
+                </div>
+            </div>
+            <button onclick="toggleChatbot()" class="close-chat">&times;</button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="bot-message">
+                <p>¡Hola! Soy Kristel, tu asistente legal de Asesoría Legal UG 360. ¿En qué puedo ayudarte?</p>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." onkeypress="handleChatInput(event)">
+            <button onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <style>
+        /* WHATSAPP BUTTON */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.6);
+        }
+
+        /* CHATBOT BUTTON */
+        .chatbot-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.6);
+        }
+
+        /* CHATBOT WINDOW */
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 380px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(17, 17, 19, 0.95) 0%, rgba(31, 31, 35, 0.95) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 998;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--white);
+            padding: 1.2rem;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .kristel-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .chatbot-header h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .chatbot-status {
+            margin: 0;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-chat:hover {
+            transform: scale(1.2);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .bot-message, .user-message {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .bot-message p {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--gold);
+            color: var(--white);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            max-width: 80%;
+            word-wrap: break-word;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .user-message p {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--white);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            max-width: 80%;
+            word-wrap: break-word;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .chatbot-input {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            background-color: rgba(17, 17, 19, 0.9);
+            border: 1px solid var(--border-color);
+            color: var(--white);
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .chatbot-input input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .chatbot-input button {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            border: none;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .chatbot-input button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: 90%;
+                height: 400px;
+                bottom: 80px;
+                right: 5%;
+                left: auto;
+            }
+        }
+    </style>
+
     <script>
+        // Form submission
         document.getElementById('form-registro')?.addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Expediente registrado correctamente. Le contactaremos pronto.');
             this.reset();
         });
+
+        // ChatBot functionality
+        function toggleChatbot() {
+            const chatWindow = document.getElementById('chatbot-window');
+            chatWindow.classList.toggle('hidden');
+            if (!chatWindow.classList.contains('hidden')) {
+                document.getElementById('chat-input').focus();
+            }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+
+            // Add user message
+            const messagesDiv = document.getElementById('chatbot-messages');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'user-message';
+            userMsg.innerHTML = `<p>${escapeHtml(message)}</p>`;
+            messagesDiv.appendChild(userMsg);
+
+            input.value = '';
+
+            // Simulate bot response
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'bot-message';
+                const response = generateBotResponse(message);
+                botMsg.innerHTML = `<p>${response}</p>`;
+                messagesDiv.appendChild(botMsg);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }, 500);
+
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function handleChatInput(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        function generateBotResponse(userMessage) {
+            const responses = {
+                penal: 'Entiendo que necesitas ayuda en Derecho Penal. Nuestros especialistas pueden asistirte con delitos financieros y auditoría criminal. ¿Deseas abrir un expediente?',
+                civil: 'Para Derecho Civil y Mercantil, ofrecemos soluciones en contratos comerciales y litigios. ¿Quieres más información?',
+                laboral: 'En Derecho Laboral contamos con expertos en cumplimiento normativo. ¿Cuál es tu situación específica?',
+                inmobiliario: 'Para asuntos inmobiliarios realizamos debida diligencia registral especializada. ¿En qué podemos ayudarte?',
+                precio: 'Los honorarios varían según la complejidad del caso. Te recomendamos agendar una consulta inicial.',
+                horario: 'Atendemos de lunes a viernes. Contacta directamente por WhatsApp para disponibilidad.',
+                contacto: 'Puedes contactarnos por WhatsApp al +506 6189-4890 o por email a bryan.ulate@asesorialegalug360.online',
+                default: 'Gracias por tu mensaje. Para consultas específicas, te recomendamos abrir un expediente o contactarnos por WhatsApp. ¿En qué materia jurídica necesitas ayuda?'
+            };
+
+            const lower = userMessage.toLowerCase();
+            for (let key in responses) {
+                if (lower.includes(key)) {
+                    return responses[key];
+                }
+            }
+            return responses.default;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
     </script>
 </body>
 </html>
